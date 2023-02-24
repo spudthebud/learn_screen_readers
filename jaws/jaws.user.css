@@ -1,0 +1,616 @@
+/* ==UserStyle==
+
+@name        JAWS Visual Simulator (UserCSS style)
+@namespace    github.com/openstyles/stylus
+@version      1.3.6
+@license      Copyright, Mark Weiler (mweiler@alumni.sfu.ca)
+
+@preprocessor stylus
+
+@var checkbox display_buttons "JAWS + F3: Display Buttons" 0
+@var checkbox display_regions "JAWS + F3 (Regions) or 'r' (goto next region)" 0
+@var checkbox display_formfields "JAWS + F5 or 'f': Display Form Fields" 0
+@var checkbox display_headings "JAWS + F6 or 'h': Display Headings" 0
+@var checkbox display_links "JAWS + F7 or 'i': Display Links" 0
+@var checkbox display_liveregions "Display Live Regions" 0
+@var checkbox display_lists "List of items" 0
+@var checkbox display_tabs "List of tabs" 0
+@var checkbox display_tables "List of tables" 0
+@var checkbox display_para "Display paragraphs" 0
+@var checkbox display_sub_sup "Display superscript & subscript" 0
+@var checkbox display_mark_warning "Warnings: Display mark tag" 0
+@var checkbox display_quotes "Display quotes" 0
+@var checkbox display_table_labels "Display table labels" 0
+
+@var checkbox display_formfields_labels "Display Form Field Labels" 0
+@var number   region_width  "Region Width"  [1, 0, 20, 1, "pt"]
+@var checkbox hover_and_focus_effect "Hover and focus effect" 0
+
+@var checkbox normalize_text "Normalize text" 0
+@var checkbox override_font "Override Site Font" 0
+@var select   fontName   "Font name"    ["APHont", "Arial", "Consolas*", "Times New Roman"]
+@var checkbox suppress_image "Suppress images" 0
+
+@var color link-color "Link Color" red
+@var color link-color "Button Color" red
+@var color header-border-color "Header Region Border Color" red
+@var color main-border-color "Main Region Border Color" orange
+@var color application-border-color "Application Region Border Color" green
+@var color search-border-color "Search Region Border Color" pink
+@var color navigation-border-color "Navigation Region Border Color" purple
+@var color aside-border-color "Aside Region Border Color" blue
+@var color footer-border-color "Footer Region Border Color" green
+@var color heading-border-color "Heading Border Color" red
+@var color form-field-border-color "Form Field Border Color" purple
+@var color listColor "List color" green
+@var color button-border-color "Button Border color" blue
+@var color hover_focus_border_color "Hover & focus border color" green
+@var color hover_focus_background_color "Hover & focus background color" gold
+
+@var checkbox keep_on "(keep this on)" 1
+
+
+==/UserStyle== */
+
+if diplay_sub_sup {
+    sub, sup {
+        background : black !important;
+        color: white !important;
+    }
+}
+if display_para {
+    p {
+        border-style : solid;
+        border-color : #888888;
+        border-width: 1pt;
+    }    
+    
+}
+
+if display_tables {
+    table, tr, th, td {
+         border: 1px solid !important;
+    }
+    table {
+        background: red !important;
+        border: 30px solid red;
+    }
+    th {
+        background: yellow !important;
+        color: black !important;
+                border: 1px solid black;
+    }
+    td {
+        background: #CCCCCC;
+        color : black;
+        border: 1px solid black;
+    }
+    thead {
+        background: aquamarine !important;
+        border: 10px solid aquamarine !important;
+    }
+
+    tbody {
+        background: pink !important;
+        
+    }
+    
+
+    
+    tr {
+        background: aqua !important;
+    }
+    caption {
+        border-style: solid;
+        border-width: 1pt;
+        border-color: orange;
+    }
+
+    td[colspan="2"], td[colspan="3"], td[colspan="4"], td[colspan="5"]{
+        background : #999 !important;
+    }
+}
+
+if display_table_labels {
+    tbody:before {
+        content : "TBody";
+    }
+    
+    thead:before {
+        content : "Thead";
+    }
+    caption:before {
+        content: "Caption: ";
+        background-color: orange;
+        color: black;
+    }
+    tr:before {
+        background: red;
+        content : "R"
+    }
+}
+
+/* Buttons */
+if display_buttons {
+    button,
+    button[type="submit"],
+    *[role="button"] {
+        border-style: solid !important;
+        border-color: button-border-color !important;
+        border-width: 2pt !important;
+    }
+}
+
+/* Links */
+if display_links {
+    a {
+        color: link-color;
+        border-color: link-color !important;
+        border-width: 2pt !important;
+        border-style: dotted !important;
+    }
+}
+/* Header */
+if display_regions {
+
+    header,
+    *[role="banner"] {
+        border-style: solid !important;
+        border-color: header-border-color !important;
+        border-width: region_width !important;
+        position: static !important;
+    }
+
+    header:before,
+    *[role="banner"]:before {
+        background: header-border-color !important;
+        color: black !important;
+        content: "'" attr(aria-label) attr(title) "' Banner region";
+        display: inline-block;
+    }
+
+
+
+    /*
+*[role="application"] {
+    border-style: solid;
+    border-color: blue;
+    border-width: 3pt;
+}
+*[role="application"]:before {
+    border-style: solid;
+    border-color: green;
+    border-width: 3pt;
+    color: white;
+    background-color: blue;
+    content:"ARIA application";
+}
+
+*/
+
+    /* Application */
+    *[role="application"] {
+        border-style: solid;
+        border-color: application-border-color !important;
+        border-width: region_width !important;
+        position: static !important;
+    }
+    *[role="application"]:before {
+        background: application-border-color !important;
+        color: black;
+        content: "'" attr(aria-label) attr(title) "' Application region";        display: block;
+    }
+    /* Search */
+    *[role="search"] {
+        border-style: solid;
+        border-color: search-border-color !important;
+        border-width: region_width !important;
+        position: static !important;
+    }
+    *[role="search"]:before {
+        background: search-border-color !important;
+        color: black;
+        content: "'" attr(aria-label) attr(title) "' Search region";        display: block;
+    }
+
+    /* Navigation */
+    nav,
+    *[role="navigation"] {
+        border-style: solid;
+        border-color: navigation-border-color !important;
+        border-width: region_width !important;
+        position: static !important;
+    }
+
+    nav:before,
+    *[role="navigation"]:before {
+        background: navigation-border-color !important;
+        color: white;
+        content: "'" attr(aria-label) attr(title) "' Navigation region";
+    }
+
+    /* Main */
+    main,
+    *[role="main"] {
+        border-style: solid !important;
+        border-color: main-border-color !important;
+        border-width: region_width !important;
+        display: block;
+        position: static !important;
+    }
+
+    main:before,
+    *[role="main"]:before {
+        background: main-border-color !important;
+        color: black !important;
+        content: "'" attr(aria-label) attr(title) "' Main region";
+        display: block;
+    }
+
+
+    /* Aside */
+    aside,
+    *[role="complementary"] {
+        border-style: solid !important;
+        border-color: aside-border-color !important;
+        border-width: region_width !important;
+        position: static !important;
+    }
+
+    aside:before,
+    *[role="complementary"]:before {
+        background-color: aside-border-color !important;
+        color: white !important;
+        content: "'" attr(aria-label) attr(title) "' Complementary information region";
+        display: block;
+    }
+
+    /* Footer */
+    footer,
+    *[role="contentinfo"] {
+        border-style: solid !important;
+        border-color: footer-border-color !important;
+        border-width: region_width !important;
+        position: static !important;
+    }
+
+    footer:before,
+    *[role="contentinfo"]:before {
+        background-color: footer-border-color !important;
+        color: white !important;
+        content: "'" attr(aria-label) attr(title) "' Content Information region (footer)" !important;
+        display: block;
+    }
+}
+
+/* Headings */
+if display_headings {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        border-style: solid !important;
+        border-color: heading-border-color !important;
+        border-width: 1pt !important;
+    }
+
+    h1::before {
+        content: "H1";
+        background-color: heading-border-color;
+        color: white;
+    }
+
+    h2::before {
+        content: "H2";
+        background-color: heading-border-color;
+        color: white;
+    }
+
+    h3::before {
+        content: "H3";
+        background-color: heading-border-color;
+        color: white;
+    }
+
+    h4::before {
+        content: "H4";
+        background-color: heading-border-color;
+        color: white;
+    }
+
+    h5::before {
+        content: "H5";
+        background-color: heading-border-color;
+        color: white;
+    }
+
+    h6::before {
+        content: "H6";
+        background-color: heading-border-color;
+        color: white;
+    }
+}
+
+/* Form Fields */
+if display_formfields {
+    input,
+    summary,
+    button {
+        border-style: solid !important;
+        border-color: form-field-border-color !important;
+        border-width: 3pt !important;
+    }
+        input[type="radio"],
+        input[type="checkbox"] {
+            outline: 3px solid form-field-border-color !important;
+        }
+        
+        if display_formfields_labels {
+            input:before,
+            summary:before,
+            button:before,
+            input[type="radio"]:before,
+            input[type="checkbox"]:before {
+                content: "(" attr(aria-label) "|" attr(id) "|" attr(name) "|" attr(title) ") X ";
+            }
+        }
+    
+}
+
+if display_liveregions {
+    *[role="log"] {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+    }
+
+    *[role="alert"] {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+    }
+
+    *[role="marquee"] {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+    }
+
+    *[role="status"] {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+    }
+
+    *[role="timer"] {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+    }
+
+
+    *[role="log"]:before {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+        color: red!important;
+        background-color: white !important;
+        content: "Live Region: (attribute role='log')" !important;
+    }
+
+    *[role="alert"]:before {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+        color: red!important;
+        background-color: white !important;
+        content: "Live Region: (attribute role='alert')" !important;
+    }
+
+    *[role="marquee"]:before {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+        color: red!important;
+        background-color: white !important;
+        content: "Live Region: (attribute role='marquee')" !important;
+    }
+
+    *[role="status"]:before {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+        color: red!important;
+        background-color: white !important;
+        content: "Live Region: (attribute role='status')" !important;
+    }
+
+    *[role="timer"]:before {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+        color: red!important;
+        background-color: white !important;
+        content: "Live Region: (attribute role='timer')" !important;
+    }
+
+    *[aria-live]:before {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+        color: red!important;
+        background-color: white !important;
+        content: "Live Region: (attribute 'aria-live')" !important;
+    }
+
+    *[aria-live]:before {
+        border-color: red !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+        color: red!important;
+        background-color: white !important;
+        content: "Live Region: (attribute 'aria-live')" !important;
+    }
+}
+
+/* Lists */
+if display_lists {
+    ul,
+    ol {
+        border-color: listColor !important;
+        border-style: solid !important;
+        border-width: 3pt !important;
+    }
+
+    ul:before,
+    ol:before {
+        content: "'" attr(aria-label) attr(title) "' List" !important;
+        background: listColor !important;
+        color: white !important
+    }
+    li {
+        border-color: listColor !important;
+        border-style: dotted !important;
+        border-width: 3pt !important;
+    }
+}
+
+/* Tabs */
+if display_tabs {
+    *[role="tab"],
+    button {
+        border-style: solid !important;
+        border-color: green !important;
+        border-width: 3pt !important;
+    }
+
+    *[role="tab"]:before {
+        border-style: solid !important;
+        border-color: button !important;
+        border-width: 3pt !important;
+        color: green !important;
+        background-color: white !important;
+        content: "Tab" !important;
+    }
+}
+
+/* Normalize text */
+if normalize_text {
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    div,
+    p,
+    li,
+    ol,
+    ul,
+    blockquote,
+    span,
+    a {
+        color: black !important;
+        background-color: grey !important;
+        font-size: 14px !important;
+        font-family: fontName !important;
+        font-weight: normal !important;
+        text-transform: lowercase !important;
+        border-style: none !important;
+    }
+
+    p:before:{
+            color: black !important;
+        content: "P" !important;
+    }
+    a:hover:before {
+        color: red !important;
+        content: "A" !important;
+    }
+
+    h1:hover:before,
+    h2:hover:before,
+    h4:hover:before,
+    h5:hover:before,
+    h6:hover:before,
+    h3:hover:before {
+        color: red !important;
+        content: "H3" !important;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+}
+
+if hover_and_focus_effect {
+    a:hover,
+    a:focus,
+    button:hover,
+    button:focus {
+        background: hover_focus_background_color !important;
+        border-color: hover_focus_border_color !important;
+        border-style: 2pt !important;
+        border-style: dotted !important;
+    }
+}
+
+
+/* Font */
+if override_font {
+    body,
+    b {
+        font-family: fontName !important;
+    }
+}
+
+if suppress_image {
+
+    img,
+    video,
+    div[role="img"],
+    svg,
+    figure {
+        display: none !important;
+        height: 0px;
+        width: 0px;
+    }
+    body {
+        background: white !important;
+    }
+    a {
+        background-image: none !important;
+    }
+    div {
+        background-image: none !important;
+    }
+}
+
+if keep_on {
+    mark {
+        border-style: solid !important;
+    }
+}
+
+/* Mark page breaks */
+*[role="doc-pagebreak"]::after{
+    background : red;
+    content: "page break ";
+}
+
+if display_mark_warning {
+    mark:before {
+        background : red;
+        content: "Warning: mark tag ";  
+    }
+}
+
+if display_quotes {
+    blockquote {
+        background: yellow;
+    }
+}
